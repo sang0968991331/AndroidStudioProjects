@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background=" #00000000"
+
+    tools:context=".Home">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <ImageView
+        android:background="@drawable/btn_style_tron"
+        android:id="@+id/add_home"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="5dp"
+        android:padding="20dp"
+        android:src="@drawable/add" />
+
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/recy_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>
