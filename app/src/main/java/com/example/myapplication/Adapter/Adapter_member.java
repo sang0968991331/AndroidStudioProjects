@@ -2,10 +2,12 @@ package com.example.myapplication.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,10 +65,13 @@ public class Adapter_member extends RecyclerView.Adapter<Adapter_member.MyViewHo
                 deleteNote(member.getId(), itemPosition);
             }
         });
-    }
-    public void deleitem(int position){
-
-
+        holder.im_member.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("AAA","clicdk");
+                updateNote( member );
+            }
+        } );
     }
     @Override
     public int getItemCount() {
@@ -77,22 +82,24 @@ public class Adapter_member extends RecyclerView.Adapter<Adapter_member.MyViewHo
            public TextView name,email;
         ImageView edit;
         ImageView delete;
+        LinearLayout info;
             public ImageView im_member;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name= itemView.findViewById( R.id.tv_Name);
             email= itemView.findViewById(R.id.tv_Email);
             edit = itemView.findViewById(R.id.ivEdit);
+            info=itemView.findViewById( R.id.lin_item );
             delete = itemView.findViewById(R.id.ivDelete);
-           // im_member=itemView.findViewById( R.id.imageView_item );
+            im_member=itemView.findViewById( R.id.img_item );
           //  im_member=itemView.findViewById(R.id.imageView);
         }
     }
     private void updateNote(Member member) {
         Intent intent = new Intent(context, Info_member.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("UpdateNoteId", member.getName());
-        intent.putExtra("UpdateNoteTitle", member.getEmail());
+        intent.putExtra("infoname", member.getName());
+        intent.putExtra("infoemail", member.getEmail());
 
         context.startActivity(intent);
     }

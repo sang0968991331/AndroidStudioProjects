@@ -67,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
-       // setContentView( R.layout.header );
-       // layout=findViewById( R.layout.header );
 
         drawerLayout = findViewById(R.id.drawer);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
@@ -103,9 +101,12 @@ public class MainActivity extends AppCompatActivity {
                         List<Member> notesList = new ArrayList<>();
 
                         for (DocumentSnapshot doc : documentSnapshots) {
-                            Member note = doc.toObject(Member.class);
-                          //  note.setEmail(doc.getId());
-                            notesList.add(note);
+                            Member member = new Member(  );
+                            // Member member = doc.toObject(Member.class);
+                            member.setId(doc.getId().toString());
+                            member.setName( doc.get("name").toString() );
+                            member.setEmail( doc.get("email").toString() );
+                            notesList.add(member);
                         }
 
                         adapter_member = new Adapter_member(notesList, getApplicationContext(), firebaseFirestore);
@@ -234,12 +235,16 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.group:
                 fragmentClass= f_Group.class;
-                //btn_addmember.setVisibility( View.GONE );
+                btn_addmember.setVisibility( View.GONE );
                 recyclerView.setVisibility( View.GONE );
                 break;
             case R.id.event:
               //  btn_addmember.setVisibility( View.GONE );
                 fragmentClass=LichHen.class;
+                recyclerView.setVisibility( View.GONE );
+                break;
+            case R.id.lich:
+                fragmentClass=su_kien.class;
                 recyclerView.setVisibility( View.GONE );
                 break;
             case R.id.logout:
@@ -250,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
 
                 break;
+
             default:
                 fragmentClass=Home.class;
                 recyclerView.setVisibility( View.VISIBLE );

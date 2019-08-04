@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,7 +48,7 @@ import static com.example.myapplication.MainActivity.userId;
  * Use the {@link f_Group#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class f_Group extends Fragment {
+public class f_Group extends Fragment implements CallBackGroup {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -61,6 +63,9 @@ public class f_Group extends Fragment {
     private ListenerRegistration listenerRegistration;
     ArrayList<Group> list;
     private ImageView add_group;
+    Fragment_list_Group fragment_list_group;
+    Bundle bundle;
+
 
 
     private OnFragmentInteractionListener mListener;
@@ -104,8 +109,13 @@ public class f_Group extends Fragment {
         Log.e("iddd", "idddd"+userId);
         firebaseFirestore=FirebaseFirestore.getInstance();
         recyclerView=view.findViewById( R.id.recy_group );
-
+        fragment_list_group = new Fragment_list_Group();
+        list=new ArrayList<>(  );
+        bundle = new Bundle(  );
         loadlistGroup(userId);
+//        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+//        fragmentTransaction.replace( R.id.fl_change,new Fragment_list_Group() ).addToBackStack( "asdasd" );
+//        fragmentTransaction.commit();
 //        add_group=view.findViewById( R.id.add_group );
 //        add_group.setOnClickListener( new View.OnClickListener() {
 //            @Override
@@ -148,15 +158,13 @@ public class f_Group extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            List<Group> list = new ArrayList<>();
                             for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                                //Group note = doc.toObject( Group.class );
-                                Log.e("group", documentSnapshot.getData().toString()+"sss");
-                                 //note.setName_group(doc.getId());
-                                list.add( new Group( documentSnapshot.get("name")+"" ) );
+                                list.add( new Group( documentSnapshot.getId()+"",documentSnapshot.get( "name" )+"" ) );
+
+
                             }
 
-                            adapter_group = new Adapter_Group( list, getContext(), firebaseFirestore );
+                            adapter_group = new Adapter_Group( list, getContext(), firebaseFirestore,f_Group.this );
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( getContext() );
                             recyclerView.setLayoutManager( mLayoutManager );
                             recyclerView.setItemAnimator( new DefaultItemAnimator() );
@@ -188,6 +196,16 @@ public class f_Group extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void NameGroup(String name) {
+        Log.d( "IDGR",name );
+        bundle.putString( "IDGroup",name );
+        fragment_list_group.setArguments( bundle );
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace( R.id.fl_change,fragment_list_group ).addToBackStack( "asdasd" );
+        fragmentTransaction.commit();
     }
 
     /**

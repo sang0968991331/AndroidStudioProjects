@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background=" #00000000"
-
     tools:context=".f_Group">
 
     <!-- TODO: Update blank fragment layout -->
@@ -24,4 +23,8 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:padding="20dp" />
+    <FrameLayout
+        android:id="@+id/fl_change"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
 </FrameLayout>

@@ -2,11 +2,13 @@ package com.example.myapplication;
 
 import android.content.ClipData;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +44,7 @@ public class Login extends AppCompatActivity {
     private Button btn_dangnhap;
     private TextView tv_dangki;
     private MenuItem MenuItem;
+    private CheckBox checkBox;
     private EditText ed_email;
     private EditText ed_pass;
     private List<User> listUser;
@@ -49,7 +52,7 @@ public class Login extends AppCompatActivity {
     private String id_user;
     private String name_user;
     private String email_user;
-
+    SharedPreferences sharedPreferences;
     FirebaseFirestore firebaseFirestore;
 
     @Override
@@ -57,10 +60,14 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         firebaseFirestore=FirebaseFirestore.getInstance();
+        sharedPreferences=getSharedPreferences( "dataLogin",MODE_PRIVATE );
         init();
        // clickRegister();
         login();
         //clickLogin();
+        ed_email.setText( sharedPreferences.getString( "email" ,"")  );
+        ed_pass.setText( sharedPreferences.getString( "pass" ,"")  );
+        checkBox.setChecked( sharedPreferences.getBoolean( "check",false ) );
 
 
     }
@@ -82,6 +89,21 @@ public class Login extends AppCompatActivity {
                     }
                     if(checkLogin){
                         Intent intent= new Intent( Login.this,MainActivity.class );
+                        if(checkBox.isChecked()){
+
+                            SharedPreferences.Editor editor=sharedPreferences.edit();
+                            editor.putString( "email",loginEmail );
+                            editor.putString( "pass",password );
+                            editor.putBoolean( "check",true );
+                            editor.commit();
+                        }else {
+                            SharedPreferences.Editor editor=sharedPreferences.edit();
+                            editor.remove( "email" );
+                            editor.remove( "pass" );
+                            editor.remove( "check" );
+                            editor.commit();
+                        }
+
                         intent.putExtra( "IdUser",id_user );
                         intent.putExtra( "NameUser",name_user );
                         intent.putExtra( "EmailUser",email_user );
@@ -102,6 +124,7 @@ public class Login extends AppCompatActivity {
 
     }
     public  void init(){
+        checkBox=findViewById( R.id.id_checkBox );
         btn_dangnhap=findViewById( R.id.btn_dangnhap );
         tv_dangki=findViewById( R.id.tv_dangki );
         ed_email=findViewById( R.id.edit_email );
@@ -116,7 +139,6 @@ public class Login extends AppCompatActivity {
             }
         } );
         Query query=firebaseFirestore.collection( "user" );
-
         query .get().addOnCompleteListener( new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -138,24 +160,8 @@ public class Login extends AppCompatActivity {
         } );
 
     }
-    public  void clickLogin(){
-        btn_dangnhap.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login();
-//                Intent intent= new Intent( Login.this,MainActivity.class );
-//                startActivity(intent);
-            }
-        } );
 
-//        tv_dangki.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent =new Intent( Login.this, Register.class );
-//                startActivity( intent );
-//            }
-//        } );
         }
-    }
+
 
 

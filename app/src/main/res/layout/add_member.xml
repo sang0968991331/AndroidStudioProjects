@@ -7,56 +7,51 @@
     android:background=" #00000000"
     android:orientation="vertical"
     tools:context=".Register">
-    <RelativeLayout
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
             android:textStyle="bold"
-            android:textSize="15dp"
+            android:textSize="20dp"
             android:id="@+id/tv_trolai"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="8dp"
+
             android:text="Trở lại"
 
              />
 
         <Button
-
+           android:layout_marginTop="10dp"
+            android:layout_gravity="right"
             android:id="@+id/btn_them"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-
-            android:layout_marginStart="262dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="0dp"
-            android:layout_toEndOf="@+id/tv_trolai"
+            android:layout_height="wrap_content"
             android:background="@drawable/btn_style"
             android:text="Add"
             android:textColor="#ffffff"
             android:textSize="15dp"
             />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
     <ImageView
         android:layout_marginBottom="10dp"
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
-        android:layout_height="170dp"
+        android:layout_height="110dp"
         android:layout_gravity="center"
         app:srcCompat="@drawable/man" />
     <EditText
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/edit_Name"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
+        android:ems="10"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:hint="Họ Tên"
@@ -64,9 +59,9 @@
          />
 
     <EditText
-        android:layout_marginTop="5dp"
         android:id="@+id/edit_Email"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
+        android:ems="10"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:hint="Email"
@@ -74,16 +69,17 @@
          />
     <EditText
         android:id="@+id/ed_sdt"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
         android:hint="Số điện thoại"
         android:inputType="textPersonName"
          />
+
     <EditText
         android:id="@+id/ed_ngaysinh"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
@@ -93,7 +89,7 @@
     <EditText
         android:layout_gravity="center"
         android:id="@+id/ed_diachi"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Địa chỉ"
@@ -103,7 +99,7 @@
     <EditText
         android:layout_gravity="center"
         android:id="@+id/ed_congty"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Công ty"
@@ -113,8 +109,8 @@
     <EditText
         android:layout_gravity="center"
         android:id="@+id/ed_thongtin"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Thông tin khác"
          />

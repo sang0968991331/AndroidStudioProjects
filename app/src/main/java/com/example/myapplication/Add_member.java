@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -126,6 +127,12 @@ public class Add_member extends AppCompatActivity {
         ed_thongtinkhac=findViewById( R.id.ed_thongtin );
         tv_trolai=findViewById( R.id.tv_trolai );
         listUsers = new ArrayList<>(  );
+
+//       // TextClock textClock = findViewById(R.id.textclock);
+//        String formatdate = "d-M-yyyy";
+//        textClock.setFormat12Hour(formatdate);
+//        textClock.setFormat24Hour(formatdate);
+
         tv_trolai.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {

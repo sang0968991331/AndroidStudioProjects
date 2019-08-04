@@ -8,10 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-
+import com.example.myapplication.CallBackGroup;
 import com.example.myapplication.R;
 import com.example.myapplication.model.Group;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,11 +23,14 @@ public class Adapter_Group  extends RecyclerView.Adapter<Adapter_Group.MyViewHol
 private List<Group> list;
 private Context context;
 private FirebaseFirestore firebaseFirestore;
+CallBackGroup callBackGroup;
 
-public Adapter_Group(List<Group> list, Context context, FirebaseFirestore firebaseFirestore) {
+
+public Adapter_Group(List<Group> list, Context context, FirebaseFirestore firebaseFirestore,CallBackGroup callBackGroup) {
         this.list = list;
         this.context = context;
         this.firebaseFirestore = firebaseFirestore;
+        this.callBackGroup = callBackGroup;
         }
 
 @NonNull
@@ -38,9 +42,19 @@ public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) 
 
 
     @Override
-public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         //holder.im_member.setId(list.get(position).getImg()  );
         holder.name.setText(list.get(position).getName_group());
+        holder.img_group.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callBackGroup.NameGroup( list.get( position ).getName_group() );
+
+
+
+
+            }
+        } );
         //holder.email.setText(list.get(position).getName_group());
         }
 
@@ -51,10 +65,12 @@ public int getItemCount() {
 
 class  MyViewHolder extends RecyclerView.ViewHolder {
     public TextView name;
+    public ImageView img_group;
     //public ImageView im_member;
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
         name= itemView.findViewById( R.id.edit_group);
+        img_group=itemView.findViewById( R.id.img_group );
 
        // email= itemView.findViewById(R.id.tv_Email);
         // im_member=itemView.findViewById( R.id.imageView_item );

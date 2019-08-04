@@ -8,12 +8,13 @@
 
     <meta-data android:name="com.google.android.actions" android:resource="@xml/vien"/>
 
-    <activity android:name=".Lich_hen"/>
+    <activity android:name=".Lich_hen" />
 
     <activity android:name=".Add_group"/>
 
 
-    <activity android:name=".Add_member">
+    <activity android:name=".Add_member"
+        android:theme="@style/AppTheme.NoActionBar">
 
     <!--<meta-data-->
 
@@ -29,13 +30,14 @@
     <!--android:parentActivityName=".MainActivity"-->
 
 
-    <activity android:name=".Info_member"/>
+    <activity android:name=".Info_member"
+        android:theme="@style/AppTheme.NoActionBar"/>
 
 
-    -<activity android:name=".Login">
+    <activity android:name=".Login">
 
 
-    -<intent-filter>
+    <intent-filter>
 
     <action android:name="android.intent.action.MAIN"/>
 

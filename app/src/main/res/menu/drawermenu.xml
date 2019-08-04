@@ -16,7 +16,10 @@
         android:title="Lịch hẹn"
         android:icon="@drawable/ic_october"
         />
-
+    <item android:id="@+id/lich"
+        android:title="Sự kiện"
+        android:icon="@drawable/ic_menu_share"
+        />
     <item android:id="@+id/logout"
         android:title="Đăng xuất"
         android:icon="@drawable/ic_logout"
