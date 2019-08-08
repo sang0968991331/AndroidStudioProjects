@@ -27,8 +27,8 @@ public class Lich_hen extends AppCompatActivity {
 
         ViewPagerAdapter adapter= new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.AddFragment(new Fragment_LichHen_menber(), "Cá nhân");
-        adapter.AddFragment(new Fragment_LichHen_group(),"Nhóm");
+        adapter.AddFragment(new Fragment_Sukien_sinhnhat(), "Cá nhân");
+        adapter.AddFragment(new Fragment_Sukien_le(),"Nhóm");
 
 
         viewPager.setAdapter(adapter);

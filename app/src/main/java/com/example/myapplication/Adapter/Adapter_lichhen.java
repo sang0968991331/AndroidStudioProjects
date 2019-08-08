@@ -14,9 +14,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.myapplication.Info_member;
 import com.example.myapplication.R;
+import com.example.myapplication.model.LichHen;
 import com.example.myapplication.model.Member;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,16 +24,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
-
 import static com.example.myapplication.MainActivity.userId;
 
+public class Adapter_lichhen extends RecyclerView.Adapter<Adapter_lichhen.MyViewHolder>{
 
-public class Adapter_member extends RecyclerView.Adapter<Adapter_member.MyViewHolder> {
-    private List<Member> list;
+    private List<LichHen> list;
     private Context context;
     private FirebaseFirestore firebaseFirestore;
 
-    public Adapter_member(List<Member> list, Context context, FirebaseFirestore firebaseFirestore) {
+    public Adapter_lichhen(List<LichHen> list, Context context, FirebaseFirestore firebaseFirestore) {
         this.list = list;
         this.context = context;
         this.firebaseFirestore = firebaseFirestore;
@@ -41,37 +40,39 @@ public class Adapter_member extends RecyclerView.Adapter<Adapter_member.MyViewHo
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(context).inflate( R.layout.item_member,parent,false));
+    public Adapter_lichhen.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new Adapter_lichhen.MyViewHolder( LayoutInflater.from(context).inflate( R.layout.item_lichhen,parent,false));
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-         //holder.im_member.setId(list.get(position).getImg()  );
-        final int itemPosition = position;
-        final Member member = list.get(itemPosition);
-            holder.name.setText(list.get(position).getName());
-            holder.email.setText(list.get(position).getSdt());
-        holder.edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateNote(member);
-            }
-        });
 
-        holder.delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteNote(member.getId(), itemPosition);
-            }
-        });
-        holder.im_member.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("AAA","clicdk");
-                updateNote( member );
-            }
-        } );
+    public void onBindViewHolder(@NonNull Adapter_lichhen.MyViewHolder holder, int position) {
+        //holder.im_member.setId(list.get(position).getImg()  );
+        final int itemPosition = position;
+
+        final LichHen lichHen = list.get(itemPosition);
+        holder.noidung.setText(list.get(position).getNoidung());
+        holder.ngayhen.setText(list.get(position).getNgayhen());
+        holder.giohen.setText(list.get(position).getGiohen());
+//        holder.edit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                updateNote(lichHen);
+//            }
+//        });
+
+//        holder.delete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                deleteNote(lichHen.getId(), itemPosition);
+//            }
+//        });
+//        holder.im_member.setOnClickListener( new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e("AAA","clicdk");
+//                updateNote( lichHen );
+//            }
+//        } );
     }
     @Override
     public int getItemCount() {
@@ -79,20 +80,21 @@ public class Adapter_member extends RecyclerView.Adapter<Adapter_member.MyViewHo
     }
 
     class  MyViewHolder extends RecyclerView.ViewHolder {
-           public TextView name,email;
+        public TextView noidung,ngayhen,giohen;
         ImageView edit;
         ImageView delete;
         LinearLayout info;
-            public ImageView im_member;
+        public ImageView im_member;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            name= itemView.findViewById( R.id.tv_Name);
-            email= itemView.findViewById(R.id.tv_Email);
+            noidung= itemView.findViewById( R.id.tv_noidung);
+            ngayhen= itemView.findViewById(R.id.tv_ngayhen);
+            giohen=itemView.findViewById( R.id.tv_giohen );
             edit = itemView.findViewById(R.id.ivEdit);
             info=itemView.findViewById( R.id.lin_item );
             delete = itemView.findViewById(R.id.ivDelete);
             im_member=itemView.findViewById( R.id.img_item );
-          //  im_member=itemView.findViewById(R.id.imageView);
+            //  im_member=itemView.findViewById(R.id.imageView);
         }
     }
     private void updateNote(Member member) {

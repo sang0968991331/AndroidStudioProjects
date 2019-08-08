@@ -8,6 +8,14 @@ public class Group {
         this.id_group = id_group;
         this.name_group = name_group;
     }
+    public Group(String name_group) {
+
+        this.name_group = name_group;
+    }
+    public Group() {
+
+
+    }
 
     public String getId_group() {
         return id_group;
@@ -23,5 +31,11 @@ public class Group {
 
     public void setName_group(String name_group) {
         this.name_group = name_group;
+    }
+
+    @Override
+    public String toString() {
+        return "Group{ name_group='" + name_group + '\'' +
+                '}';
     }
 }

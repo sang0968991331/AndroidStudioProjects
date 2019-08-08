@@ -160,11 +160,8 @@ public class f_Group extends Fragment implements CallBackGroup {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot documentSnapshot : task.getResult()) {
                                 list.add( new Group( documentSnapshot.getId()+"",documentSnapshot.get( "name" )+"" ) );
-
-
                             }
-
-                            adapter_group = new Adapter_Group( list, getContext(), firebaseFirestore,f_Group.this );
+                          adapter_group = new Adapter_Group( list, getContext(), firebaseFirestore,f_Group.this );
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( getContext() );
                             recyclerView.setLayoutManager( mLayoutManager );
                             recyclerView.setItemAnimator( new DefaultItemAnimator() );

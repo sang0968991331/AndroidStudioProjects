@@ -12,14 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="start|center"
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="20sp"
             android:id="@+id/tv_trolaiif"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
 
             android:text="Trở lại"
 
@@ -31,9 +31,8 @@
             android:id="@+id/btn_luu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_style"
+            android:textColor="#504646"
             android:text="Lưu"
-            android:textColor="#ffffff"
             android:textSize="15dp"
             />
 
@@ -47,7 +46,6 @@
         android:layout_gravity="center"
         app:srcCompat="@drawable/man" />
     <EditText
-        android:layout_marginTop="15dp"
         android:id="@+id/edit_Name"
         android:layout_width="@dimen/dp300"
         android:layout_height="wrap_content"
@@ -57,7 +55,6 @@
         />
 
     <EditText
-        android:layout_marginTop="@dimen/dp5"
         android:id="@+id/edit_Email"
         android:layout_width="@dimen/dp300"
         android:layout_height="wrap_content"
@@ -74,7 +71,30 @@
         android:hint="Số điện thoại"
         android:inputType="textPersonName"
         />
+    <LinearLayout
+        android:ems="10"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:ems="3"
+            android:textStyle="bold"
+            android:text="Group : "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_tengroup"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+        <Spinner
+            android:id="@+id/snip_groupif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+    </LinearLayout>
     <EditText
+
         android:id="@+id/ed_ngaysinh"
         android:layout_width="@dimen/dp300"
         android:layout_height="wrap_content"

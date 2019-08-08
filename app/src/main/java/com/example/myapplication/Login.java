@@ -57,20 +57,37 @@ public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
-        firebaseFirestore=FirebaseFirestore.getInstance();
-        sharedPreferences=getSharedPreferences( "dataLogin",MODE_PRIVATE );
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.login );
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        sharedPreferences = getSharedPreferences( "dataLogin", MODE_PRIVATE );
+        Log.e("fafa",sharedPreferences.getString( "IdUser", "" )+"");
         init();
-       // clickRegister();
-        login();
-        //clickLogin();
-        ed_email.setText( sharedPreferences.getString( "email" ,"")  );
-        ed_pass.setText( sharedPreferences.getString( "pass" ,"")  );
-        checkBox.setChecked( sharedPreferences.getBoolean( "check",false ) );
+        if (sharedPreferences.getString( "IdUser", "" ).equals( "" )) {
+            login();
+        } else {
+            Intent intent = new Intent( Login.this, MainActivity.class );
+//            intent.putExtra( "IdUser", id_user );
+//            intent.putExtra( "NameUser", name_user );
+//            intent.putExtra( "EmailUser", email_user );
+            startActivity( intent );
+            finish();
 
+        }
+        if(!checkBox.isChecked()){
+        ed_email.setText( sharedPreferences.getString( "email", "" ) );
+        ed_pass.setText( sharedPreferences.getString( "pass", "" ) );
+        checkBox.setChecked( sharedPreferences.getBoolean( "check", false ) );
 
+        }else{
+            ed_email.setText( "" );
+            ed_pass.setText("");
+           // checkBox.setChecked( sharedPreferences.getBoolean( "check", false ) );
+        }
     }
+
+
+
     private void login() {
         btn_dangnhap.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -89,20 +106,24 @@ public class Login extends AppCompatActivity {
                     }
                     if(checkLogin){
                         Intent intent= new Intent( Login.this,MainActivity.class );
-                        if(checkBox.isChecked()){
+                     //   if(checkBox.isChecked()){
 
                             SharedPreferences.Editor editor=sharedPreferences.edit();
+                            editor.putString( "IdUser", id_user);
                             editor.putString( "email",loginEmail );
+                            editor.putString( "name",name_user );
                             editor.putString( "pass",password );
                             editor.putBoolean( "check",true );
                             editor.commit();
-                        }else {
-                            SharedPreferences.Editor editor=sharedPreferences.edit();
-                            editor.remove( "email" );
-                            editor.remove( "pass" );
-                            editor.remove( "check" );
-                            editor.commit();
-                        }
+//                        }else {
+//                            SharedPreferences.Editor editor=sharedPreferences.edit();
+////                            editor.remove( "IdUser" );
+////                            editor.remove( "email" );
+////                            editor.remove( "pass" );
+////                            editor.remove( "name" );
+//                            editor.remove( "check" );
+//                            editor.commit();
+//                        }
 
                         intent.putExtra( "IdUser",id_user );
                         intent.putExtra( "NameUser",name_user );

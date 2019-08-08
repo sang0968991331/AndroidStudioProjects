@@ -3,27 +3,29 @@ package com.example.myapplication;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.tabs.TabLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
-import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
+
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link su_kien.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link su_kien#newInstance} factory method to
+ * Use the {@link SuKien#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class su_kien extends Fragment {
+public class SuKien extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,10 +34,14 @@ public class su_kien extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private TabLayout tabLayout;
+    private AppBarLayout appBarLayout;
+    private ViewPager viewPager;
+    Fragment_Sukien_sinhnhat fragment_sukien_sinhnhat=new Fragment_Sukien_sinhnhat();
+    Fragment_Sukien_le fragment_sukien_le= new Fragment_Sukien_le();
     private OnFragmentInteractionListener mListener;
-    private CalendarView calendarView;
-    public su_kien() {
+
+    public SuKien() {
         // Required empty public constructor
     }
 
@@ -45,24 +51,24 @@ public class su_kien extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment su_kien.
+     * @return A new instance of fragment SuKien.
      */
     // TODO: Rename and change types and number of parameters
-    public static su_kien newInstance(String param1, String param2) {
-        su_kien fragment = new su_kien();
+    public static SuKien newInstance(String param1, String param2) {
+        SuKien fragment = new SuKien();
         Bundle args = new Bundle();
-        args.putString( ARG_PARAM1, param1 );
-        args.putString( ARG_PARAM2, param2 );
-        fragment.setArguments( args );
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
+        super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString( ARG_PARAM1 );
-            mParam2 = getArguments().getString( ARG_PARAM2 );
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -70,31 +76,37 @@ public class su_kien extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate( R.layout.fragment_su_kien, container, false );
-        final TextView tv_ngay=view.findViewById( R.id.tv_cate );
-        calendarView=view.findViewById( R.id.calendar );
-        calendarView.setOnDateChangeListener( new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                String date =year+"/" +month+"/"+dayOfMonth;
-                tv_ngay.setText( date );
-                Log.e("date",date+" ");
-            }
-        } );
+        Log.e("sasa","vao sukien");
+        View view= inflater.inflate(R.layout.fragment_su_kien, container, false);
+        tabLayout= view.findViewById(R.id.tabLayout) ;
+        appBarLayout=view.findViewById(R.id.appbar);
+        viewPager=view.findViewById(R.id.viewpager);
+        ViewPagerAdapter adapter= new ViewPagerAdapter(getChildFragmentManager());
+        adapter.AddFragment(fragment_sukien_sinhnhat, "Sinh nhật");
+        adapter.AddFragment(fragment_sukien_le,"Ngày lễ");
+      //  Log.e( "fafa","vaoday" );
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
+        Log.e( "fafa","vaoday" );
+        return  view;
 
-        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction( uri );
+            mListener.onFragmentInteraction(uri);
         }
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     public void onAttach(Context context) {
-        super.onAttach( context );
+        super.onAttach(context);
 
     }
 
