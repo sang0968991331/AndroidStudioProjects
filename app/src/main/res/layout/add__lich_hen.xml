@@ -4,67 +4,119 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:text="Tạo lịch hẹn"
+            android:gravity="center"
             android:layout_gravity="center|top"
             android:textStyle="bold"
             android:textSize="@dimen/dp70"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="Nội dung : "
+        <com.google.android.material.appbar.AppBarLayout
+            android:background="@color/colorPrimaryDark"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:elevation="0dp" >
+
+            <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="100dp"
+                android:padding="10dp"
+                android:src="@drawable/lich" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/ic_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:text="Nội dung : "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
             <EditText
                 android:id="@+id/ed_noidung"
                 android:hint="Nhập nội dung"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
             android:layout_height="wrap_content">
+            <ImageView
+
+                android:src="@drawable/ic_october"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
             <TextView
+                android:layout_weight="1"
                 android:text="Ngày : "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tv_ngayhen"
+                android:layout_weight="1"
                 android:text="Chọn ngày"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <Button
-                android:text="date"
                 android:id="@+id/btn_ngayhen"
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:text="date"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
             android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/ic_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
             <TextView
+                android:layout_weight="1"
                 android:text="Giờ : "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tv_giolichhen"
+                android:layout_weight="1"
                 android:text="Chọn Giờ"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
             <Button
-                android:text="time"
                 android:id="@+id/btn_giohen"
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:text="time"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_themlichhen"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_style"
+            android:layout_gravity="center"
             android:text="Thêm lịch hẹn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

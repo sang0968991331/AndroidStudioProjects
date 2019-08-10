@@ -50,7 +50,7 @@ public class Add_member extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private TextView tv_trolai;
     TextView tengroup;
-    Spinner spinner;
+    Spinner spinner =null;
     private FirebaseFirestore firebaseFirestore;
     List<String> list;
     private List<User> listUsers;
@@ -182,7 +182,6 @@ public class Add_member extends AppCompatActivity {
                                 //Log.e("list",doc.get( "name" )+"ss");
                                 // group.setName_group( doc.get( "name" ).toString() );
                                 list.add( doc.get( "name" ).toString() );
-
                             }
                             ArrayAdapter<String> adapter = new ArrayAdapter( Add_member.this, android.R.layout.simple_spinner_item, list );
                             adapter.setDropDownViewResource( android.R.layout.simple_list_item_single_choice );
@@ -190,10 +189,9 @@ public class Add_member extends AppCompatActivity {
                             spinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                 //   tengroup.setText(  spinner.getSelectedItem().toString());
+                                  tengroup.setText(  spinner.getSelectedItem().toString());
                                 //    Toast.makeText( Add_member.this, spinner.getSelectedItem().toString(), Toast.LENGTH_SHORT ).show();
                                 }
-
                                 @Override
                                 public void onNothingSelected(AdapterView<?> adapterView) {
 

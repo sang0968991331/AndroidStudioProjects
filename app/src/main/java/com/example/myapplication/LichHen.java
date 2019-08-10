@@ -127,7 +127,7 @@ public class LichHen extends Fragment {
                 for (DocumentSnapshot doc : queryDocumentSnapshots) {
                     com.example.myapplication.model.LichHen lichHen = new com.example.myapplication.model.LichHen(  );
                     // Member member = doc.toObject(Member.class);
-                    //  lichHen.setId(doc.getId().toString());
+                     lichHen.setId(doc.getId().toString());
                     lichHen.setNoidung( doc.get("noidung").toString() );
                     lichHen.setNgayhen( doc.get("ngay").toString() );
                     lichHen.setGiohen( doc.get("gio").toString() );

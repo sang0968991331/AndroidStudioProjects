@@ -130,13 +130,13 @@ public class Login extends AppCompatActivity {
                         intent.putExtra( "EmailUser",email_user );
                         startActivity(intent);
                         finish();
-                        Toast.makeText( Login.this, "Dang nhap thanh cong", Toast.LENGTH_SHORT ).show();
+                        Toast.makeText( Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT ).show();
 
                     }else {
-                        Toast.makeText( Login.this, "Tai khoan mat khau khong dung", Toast.LENGTH_SHORT ).show();
+                        Toast.makeText( Login.this, "Kiểm tra tài khoản, mật khẩu !", Toast.LENGTH_SHORT ).show();
                     }
                 }else{
-                    Toast.makeText( Login.this, "Nhap tai khoan mat khau", Toast.LENGTH_SHORT ).show();
+                    Toast.makeText( Login.this, "Nhập tài khoản , mật khẩu !", Toast.LENGTH_SHORT ).show();
                 }
             }
         } );

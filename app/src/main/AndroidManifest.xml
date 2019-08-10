@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Add_LichHen"></activity>
+        <activity android:name=".List_Lien_He"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Info_lich_hen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Add_LichHen"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.actions"
@@ -42,16 +52,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Register"></activity>
-        <activity android:name=".MainActivity"></activity>
-        <!--<receiver android:name=".Notificatuon.Notifica_Receiver"/>-->
-
-        <!--<service android:name=".Notificatuon.MyNotificationManager"-->
-            <!--android:enabled="true"/>-->
-        <!--<service android:name=".Notificatuon.myService"-->
-            <!--android:enabled="true"-->
-
-            <!--/>-->
+        <activity android:name=".Register" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

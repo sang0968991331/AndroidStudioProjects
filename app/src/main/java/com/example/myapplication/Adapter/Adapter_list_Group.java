@@ -19,15 +19,19 @@ import com.example.myapplication.R;
 import com.example.myapplication.model.Member;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.example.myapplication.MainActivity.userId;
 
 public class Adapter_list_Group extends RecyclerView.Adapter<Adapter_list_Group.MyViewHolder> {
     private List<Member> list;
     private Context context;
+    String t="";
     private FirebaseFirestore firebaseFirestore;
 
     public Adapter_list_Group(List<Member> list, Context context, FirebaseFirestore firebaseFirestore) {
@@ -59,6 +63,7 @@ public class Adapter_list_Group extends RecyclerView.Adapter<Adapter_list_Group.
         holder.delete.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e( "gg", member.getId() );
                 deleteNote( member.getId(), itemPosition );
             }
         } );
@@ -105,20 +110,19 @@ public class Adapter_list_Group extends RecyclerView.Adapter<Adapter_list_Group.
     }
 
     private void deleteNote(String id, final int position) {
+        DocumentReference docRef = firebaseFirestore.collection( "user" ).document( userId ).collection( "Lismember" ).document( id );
+        Map<String, Object> updates = new HashMap<>();
+        updates.put( "group", t);
 
-        firebaseFirestore.collection( "user" ).document( userId ).collection( "Lismember" )
-                .document( id )
-                .delete()
-                .addOnCompleteListener( new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        list.remove( position );
-                        notifyItemRemoved( position );
-                        notifyItemRangeChanged( position, list.size() );
-                        Toast.makeText( context, "Đã xóa! ", Toast.LENGTH_SHORT ).show();
-                    }
-                } );
+        docRef.update( updates ).addOnCompleteListener( new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                list.remove( position );
+                notifyItemRemoved( position );
+                notifyItemRangeChanged( position, list.size() );
+                Toast.makeText( context, "Đã xóa khỏi nhóm! ", Toast.LENGTH_SHORT ).show();
+            }
+        } );
     }
-
 }
 

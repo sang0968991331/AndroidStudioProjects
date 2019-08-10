@@ -10,8 +10,8 @@
 
     <ImageView
         android:layout_marginLeft="@dimen/dp20"
-        android:src="@drawable/ic_october"
-        android:id="@+id/img_item"
+        android:src="@drawable/man"
+        android:id="@+id/imitem_cuocgoi"
         android:layout_width="56dp"
         android:layout_height="56dp"
         />
@@ -23,46 +23,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/tv_noidung"
-            android:textStyle="bold"
+            android:id="@+id/tv_Name"
+            android:textStyle="normal"
+            android:textSize="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nội dung"
+            android:text="Họ Tên"
+            android:layout_marginBottom="5dp"
             />
 
         <TextView
-            android:id="@+id/tv_ngayhen"
+
+            android:layout_marginLeft="10dp"
+            android:id="@+id/tv_Email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ngày"
+            android:text="Số điện thoại"
             android:textStyle="normal|italic"
             />
-        <TextView
-            android:id="@+id/tv_giohen"
-            android:text="Giờ"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
-
-    <LinearLayout
-        android:gravity="end"
-        android:layout_width="match_parent"
+<LinearLayout
+    android:gravity="end"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_marginRight="10dp"
+        android:id="@+id/btn_cuocgoi"
+        android:padding="5dp"
+        android:layout_width="40dp"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:src="@drawable/ic_phone_call" />
+</LinearLayout>
 
-        <ImageView
-
-            android:id="@+id/ivEditLH"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_edit_document" />
-
-        <ImageView
-            android:layout_marginTop="3dp"
-            android:id="@+id/ivDeleteLH"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_delete" />
-    </LinearLayout>
 </LinearLayout>

@@ -1,91 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background=" #00000000"
+    android:orientation="vertical"
     tools:context=".Register">
+    <LinearLayout
 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:gravity="start|center"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:id="@+id/tv_trolai"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Trở lại"
+            />
+        <Button
+            android:layout_marginTop="10dp"
+            android:layout_gravity="right"
+            android:id="@+id/btn_addgroup"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Add"
+            android:textColor="#504646"
+            android:textSize="15dp"
+            />
 
+    </LinearLayout>
     <ImageView
+        android:layout_marginBottom="10dp"
         android:id="@+id/imageView"
-        android:layout_width="203dp"
-        android:layout_height="155dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="92dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
         app:srcCompat="@drawable/teamwork" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="193dp" />
-
-    <Button
-        android:id="@+id/btn_luu"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/btn_style"
-        android:text="Thêm"
-        android:textColor="#ffffff"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/ic_group"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <EditText
 
-    <TextView
-        android:textStyle="bold"
-        android:textSize="15dp"
-        android:id="@+id/tv_trolai"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:text="Trở lại"
-        app:layout_constraintEnd_toStartOf="@+id/btn_luu"
-        app:layout_constraintHorizontal_bias="0.084"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/edit_Namegroup"
+            android:layout_width="wrap_content"
+            android:ems="10"
+            android:layout_height="wrap_content"
 
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="Tên Nhóm"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.589"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            android:hint="Tên nhóm"
+            android:inputType="textPersonName"
+            />
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="Thông tin khác"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.589"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3"
-        app:layout_constraintVertical_bias="0.0" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

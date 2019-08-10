@@ -26,6 +26,17 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_group"
+            android:visibility="gone"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="20dp"
+            android:src="@drawable/addgroup"
+
+            android:layout_gravity="bottom|end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_lichhen"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"

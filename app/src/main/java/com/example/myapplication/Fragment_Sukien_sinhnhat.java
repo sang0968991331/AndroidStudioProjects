@@ -85,7 +85,6 @@ public class Fragment_Sukien_sinhnhat extends Fragment {
         return view;
     }
     private void loadsinhnhat() {
-
         firebaseFirestore.collection("user").document( userId ).collection( "Lismember")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -94,7 +93,6 @@ public class Fragment_Sukien_sinhnhat extends Fragment {
                         if (task.isSuccessful()) {
                             List<Member> notesList = new ArrayList<>();
                             Log.e("dsa","vao day");
-
                             for (DocumentSnapshot doc : task.getResult()) {
                                 Member member = new Member(  );
                                 // Member member = doc.toObject(Member.class);
@@ -109,7 +107,7 @@ public class Fragment_Sukien_sinhnhat extends Fragment {
                                 member.setNgaysinh( arr[0]+"/"+arr[1] );
                                 String sinhnhat=arr[0]+"/"+arr[1];
                                 if(sinhnhat.equals( ngay )){
-                               //     MyNotificationManager.getInstance(getActivity()).displayNotification(ngay, "Sinh nhat ban "+doc.get("name").toString());
+                                   MyNotificationManager.getInstance(getActivity()).displayNotification(ngay, "Sinh nhat ban "+doc.get("name").toString(),R.drawable.sinhnhat);
                                 }
                                // member.setSdt( doc.get("sdt").toString() );
                                 notesList.add(member);

@@ -1,137 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background=" #00000000"
-    android:orientation="vertical"
+
     tools:context=".Register">
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_marginLeft="5dp"
-            android:gravity="start|center"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:id="@+id/tv_trolaiif"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:gravity="start|center"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:id="@+id/tv_trolaiif"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:text="Trở lại"
+
+                />
+
+            <Button
+                android:layout_marginTop="10dp"
+                android:layout_gravity="right"
+                android:id="@+id/btn_luu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#504646"
+                android:text="Lưu"
+                android:textSize="15dp"
+                />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_marginBottom="@dimen/dp10"
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/dp170"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/man" />
+        <LinearLayout
 
-            android:text="Trở lại"
-
-            />
-
-        <Button
             android:layout_marginTop="10dp"
-            android:layout_gravity="right"
-            android:id="@+id/btn_luu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#504646"
-            android:text="Lưu"
-            android:textSize="15dp"
-            />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_marginBottom="@dimen/dp10"
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp170"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/man" />
-    <EditText
-        android:id="@+id/edit_Name"
-        android:layout_width="@dimen/dp300"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:hint="Họ Tên"
-        android:inputType="textPersonName"
-        />
-
-    <EditText
-        android:id="@+id/edit_Email"
-        android:layout_width="@dimen/dp300"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:hint="Email"
-        android:inputType="textPersonName"
-        />
-    <EditText
-        android:id="@+id/ed_sdt"
-        android:layout_width="@dimen/dp300"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:hint="Số điện thoại"
-        android:inputType="textPersonName"
-        />
-    <LinearLayout
-        android:ems="10"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TextView
-            android:ems="3"
-            android:textStyle="bold"
-            android:text="Group : "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_tengroup"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content" />
-        <Spinner
-            android:id="@+id/snip_groupif"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/ic_avatar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <EditText
+                android:ems="10"
+                android:id="@+id/edit_Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Họ Tên"
+                android:inputType="textPersonName"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/ic_message"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <EditText
+                android:ems="10"
+                android:id="@+id/edit_Email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Email"
+                android:inputType="textPersonName"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/ic_phone_call"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <EditText
+                android:id="@+id/ed_sdt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Số điện thoại"
+                android:inputType="textPersonName"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:ems="10"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_weight="2"
+                android:ems="3"
+                android:textStyle="bold"
+                android:text="Group : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/tv_tengroup"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" />
+            <Spinner
+                android:layout_weight="1"
+                android:layout_gravity=""
+                android:id="@+id/snip_groupif"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content">
 
-        </Spinner>
+            </Spinner>
+        </LinearLayout>
+        <EditText
+
+            android:id="@+id/ed_ngaysinh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:hint="Ngày sinh"
+            android:inputType="date|textPersonName" />
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/ic_home"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <EditText
+                android:layout_gravity="center"
+                android:id="@+id/ed_diachi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Địa chỉ"
+                android:inputType="textPersonName" />
+
+        </LinearLayout>
+        <EditText
+            android:layout_gravity="center"
+            android:id="@+id/ed_congty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Công ty"
+            android:inputType="textPersonName"
+            />
+
+        <EditText
+            android:layout_gravity="center"
+            android:id="@+id/ed_thongtin"
+            android:ems="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:hint="Thông tin khác"
+            />
+
     </LinearLayout>
-    <EditText
-
-        android:id="@+id/ed_ngaysinh"
-        android:layout_width="@dimen/dp300"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:hint="Ngày sinh"
-        android:inputType="date|textPersonName" />
-
-    <EditText
-        android:layout_gravity="center"
-        android:id="@+id/ed_diachi"
-        android:layout_width="@dimen/dp300"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Địa chỉ"
-        android:inputType="textPersonName" />
-
-
-    <EditText
-        android:layout_gravity="center"
-        android:id="@+id/ed_congty"
-        android:layout_width="@dimen/dp300"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Công ty"
-        android:inputType="textPersonName"
-        />
-
-    <EditText
-        android:layout_gravity="center"
-        android:id="@+id/ed_thongtin"
-        android:layout_width="@dimen/dp300"
-        android:layout_height="@dimen/dp50"
-
-        android:hint="Thông tin khác"
-        />
 
 
 
-</LinearLayout>
+</ScrollView>

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Info_lich_hen;
 import com.example.myapplication.Info_member;
 import com.example.myapplication.R;
 import com.example.myapplication.model.LichHen;
@@ -53,26 +54,27 @@ public class Adapter_lichhen extends RecyclerView.Adapter<Adapter_lichhen.MyView
         holder.noidung.setText(list.get(position).getNoidung());
         holder.ngayhen.setText(list.get(position).getNgayhen());
         holder.giohen.setText(list.get(position).getGiohen());
-//        holder.edit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                updateNote(lichHen);
-//            }
-//        });
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateNote(lichHen);
+            }
+        });
 
-//        holder.delete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                deleteNote(lichHen.getId(), itemPosition);
-//            }
-//        });
-//        holder.im_member.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.e("AAA","clicdk");
-//                updateNote( lichHen );
-//            }
-//        } );
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("AAA",lichHen.getId());
+                delete_LH(lichHen.getId(), itemPosition);
+            }
+        });
+        holder.im_member.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("AAA","clicdk");
+                updateNote( lichHen );
+            }
+        } );
     }
     @Override
     public int getItemCount() {
@@ -90,25 +92,23 @@ public class Adapter_lichhen extends RecyclerView.Adapter<Adapter_lichhen.MyView
             noidung= itemView.findViewById( R.id.tv_noidung);
             ngayhen= itemView.findViewById(R.id.tv_ngayhen);
             giohen=itemView.findViewById( R.id.tv_giohen );
-            edit = itemView.findViewById(R.id.ivEdit);
+            edit = itemView.findViewById(R.id.ivEditLH);
             info=itemView.findViewById( R.id.lin_item );
-            delete = itemView.findViewById(R.id.ivDelete);
+            delete = itemView.findViewById(R.id.ivDeleteLH);
             im_member=itemView.findViewById( R.id.img_item );
             //  im_member=itemView.findViewById(R.id.imageView);
         }
     }
-    private void updateNote(Member member) {
-        Intent intent = new Intent(context, Info_member.class);
+    private void updateNote(LichHen lichHen) {
+        Intent intent = new Intent(context, Info_lich_hen.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("infoname", member.getName());
-        intent.putExtra("infoemail", member.getEmail());
-
+        intent.putExtra("infolichhen", lichHen.getId());
+        intent.putExtra("infoemail", lichHen.getNgayhen());
         context.startActivity(intent);
     }
 
-    private void deleteNote(String id, final int position) {
-
-        firebaseFirestore.collection("user").document( userId ).collection( "Lismember")
+    private void delete_LH(String id, final int position) {
+        firebaseFirestore.collection("user").document( userId ).collection( "Lichhen")
                 .document(id)
                 .delete()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

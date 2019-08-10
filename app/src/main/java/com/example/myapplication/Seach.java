@@ -3,11 +3,30 @@ package com.example.myapplication;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myapplication.Adapter.Adapter_cuocgoi;
+import com.example.myapplication.Adapter.Adapter_member;
+import com.example.myapplication.model.Member;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.myapplication.MainActivity.userId;
 
 
 /**
@@ -27,6 +46,10 @@ public class Seach extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    FirebaseFirestore firebaseFirestore;
+    RecyclerView recyclerView;
+    Adapter_cuocgoi adapter_cuocgoi;
+    ArrayList<com.example.myapplication.model.Member> list;
 
     private OnFragmentInteractionListener mListener;
 
@@ -65,9 +88,41 @@ public class Seach extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_seach, container, false);
-    }
+        View view= inflater.inflate(R.layout.fragment_seach, container, false);
+        firebaseFirestore= FirebaseFirestore.getInstance();
+        recyclerView=view.findViewById( R.id.recy_cuocgoi );
+        loadNotesList();
 
+        return view;
+    }
+    private void loadNotesList() {
+        firebaseFirestore.collection( "user" ).document( userId ).collection( "Lismember" )
+                .get()
+                .addOnCompleteListener( new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<Member> notesList = new ArrayList<>();
+                            for (DocumentSnapshot doc : task.getResult()) {
+                                Member member = new Member();
+                                // Member member = doc.toObject(Member.class);
+                                member.setId( doc.getId().toString() );
+                                member.setName( doc.get( "name" ).toString() );
+                                member.setEmail( doc.get( "email" ).toString() );
+                                member.setSdt( doc.get( "sdt" ).toString() );
+                                notesList.add( member );
+                            }
+                            adapter_cuocgoi = new Adapter_cuocgoi( notesList, getContext(), firebaseFirestore );
+                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( getContext() );
+                            recyclerView.setLayoutManager( mLayoutManager );
+                            recyclerView.setItemAnimator( new DefaultItemAnimator() );
+                            recyclerView.setAdapter( adapter_cuocgoi );
+                        } else {
+                            Log.d( "aaa", "Error getting documents: ", task.getException() );
+                        }
+                    }
+                } );
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

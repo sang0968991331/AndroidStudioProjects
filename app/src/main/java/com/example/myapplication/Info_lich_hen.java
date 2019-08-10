@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -15,85 +16,91 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
+import com.example.myapplication.model.LichHen;
+import com.example.myapplication.model.Member;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
 
-import static android.R.style.Theme_Holo_Light;
 import static android.R.style.Theme_Holo_Light_Dialog;
 import static com.example.myapplication.MainActivity.userId;
 
-public class Add_LichHen extends AppCompatActivity {
-        private EditText ed_noidung;
-        private TextView tv_ngayhen,tv_giohen;
-        private Button btn_ngayhen,btn_giohen,btn_themlich;
-        FirebaseFirestore firebaseFirestore;
+public class Info_lich_hen extends AppCompatActivity {
+    String infoID;
+    private EditText ed_noidung;
+    private TextView tv_ngayhen,tv_giohen;
+    private Button btn_ngayhen,btn_giohen,btn_themlich;
+    FirebaseFirestore firebaseFirestore;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private TimePickerDialog.OnTimeSetListener onTimeSetListener;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.add__lich_hen );
+        setContentView( R.layout.info_lich_hen );
         firebaseFirestore=FirebaseFirestore.getInstance();
+        infoID=getIntent().getStringExtra( "infolichhen" );
         init();
-        add_lichhen();
+        infoLH();
+        UpdateLH();
     }
-
-    public void add_lichhen() {
+    public void infoLH() {
+       firebaseFirestore.collection( "user" ).document( userId ).collection( "Lichhen" ).document( infoID )
+               .get().addOnCompleteListener( new OnCompleteListener<DocumentSnapshot>() {
+           @Override
+           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+               if (task.isSuccessful()) {
+                   DocumentSnapshot document = task.getResult();
+                   Log.e( "vvv", document.getId() + " => " + document.getData() + document.get( "email" ) );
+                   //   id = document.getId();
+                   ed_noidung.setText( document.get( "noidung" ).toString() + "" );
+                   tv_ngayhen.setText( document.get( "ngay" ).toString() + "" );
+                   tv_giohen.setText( document.get( "gio" ).toString() + "" );
+               }
+           }
+       });
+    }
+    public void UpdateLH() {
         btn_themlich.setOnClickListener( new View.OnClickListener() {
+            //  private Map<String, String> userMap;
             @Override
             public void onClick(View v) {
-                final String noidung = ed_noidung.getText().toString().trim();
-                final String ngay = tv_ngayhen.getText().toString().trim();
-                final String gio = tv_giohen.getText().toString().trim();
+                String noidung = ed_noidung.getText().toString().trim();
+                String ngay = tv_ngayhen.getText().toString().trim();
+                String gio = tv_giohen.getText().toString().trim();
+
+
                 if (!noidung.equals( "" ) && !ngay.equals( "" ) && !gio.equals( "" )) {
-                    Map<String, String> userMap = new HashMap<>();
-                    userMap.put( "noidung", noidung );
-                    userMap.put( "ngay", ngay );
-                    userMap.put( "gio", gio );
-                    firebaseFirestore.collection( "user" ).document( userId ).collection( "Lichhen" ).add( userMap ).addOnSuccessListener( new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-//                                    Intent intent = new Intent( Add_member.this, Info_member.class );
-//                                    intent.putExtra( "name",hoten );
-//                                    intent.putExtra( "email",email );
-//                                    intent.putExtra( "sdt",sdt );
-//                                    intent.putExtra( "ngay sinh",ngaysinh );
-//                                    intent.putExtra( "dia chi",diachi );
-//                                    intent.putExtra( "cong ty",congty );
-//                                    intent.putExtra( "thong tin khac",thongtin );
-//                                    startActivity( intent );
+                    Map<String, Object> note = (new LichHen(noidung,ngay,gio )).toMap() ;
 
+                    firebaseFirestore.collection( "user" ).document( userId ).collection( "Lichhen" ).document( infoID ).set( note ).addOnSuccessListener( new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
                             finish();
-                            Toast.makeText( Add_LichHen.this, "Thêm thành công", Toast.LENGTH_SHORT ).show();
+                            Log.e( "aaa", "Note document update successful!" );
+                            Toast.makeText( getApplicationContext(), "Cập nhật thành công ", Toast.LENGTH_SHORT ).show();
                         }
-                    } ).addOnFailureListener( new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            String error = e.getMessage();
-                            Toast.makeText( Add_LichHen.this, "Error", Toast.LENGTH_SHORT ).show();
-                        }
-                    } );
-
-
+                    } )
+                            .addOnFailureListener( new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e( "bbb", "Error adding Note document", e );
+                                    Toast.makeText( getApplicationContext(), "Note could not be updated!", Toast.LENGTH_SHORT ).show();
+                                }
+                            } );
                 } else {
-                    Toast.makeText( Add_LichHen.this, "Nhap du thong tin", Toast.LENGTH_SHORT ).show();
+                    Toast.makeText( Info_lich_hen.this, "Nhap du thong tin", Toast.LENGTH_SHORT ).show();
                 }
-
-
             }
-
         } );
     }
-
-
     public  void init(){
         ed_noidung=findViewById( R.id.ed_noidung );
         tv_ngayhen=findViewById( R.id.tv_ngayhen );
@@ -110,7 +117,7 @@ public class Add_LichHen extends AppCompatActivity {
                 int month = calendar.get( Calendar.MONTH );
                 int day = calendar.get( Calendar.DAY_OF_MONTH );
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog( Add_LichHen.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, onDateSetListener, year, month, day );
+                DatePickerDialog datePickerDialog = new DatePickerDialog( Info_lich_hen.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, onDateSetListener, year, month, day );
                 datePickerDialog.getWindow().setBackgroundDrawable( new ColorDrawable( Color.TRANSPARENT ) );
                 datePickerDialog.show();
             }
@@ -131,7 +138,7 @@ public class Add_LichHen extends AppCompatActivity {
                 final Calendar c = Calendar.getInstance();
                 int hour = c.get( Calendar.HOUR_OF_DAY );
                 int minute = c.get( Calendar.MINUTE );
-                TimePickerDialog timePickerDialog= new TimePickerDialog( Add_LichHen.this, Theme_Holo_Light_Dialog,onTimeSetListener,hour,minute,false );
+                TimePickerDialog timePickerDialog= new TimePickerDialog( Info_lich_hen.this, Theme_Holo_Light_Dialog,onTimeSetListener,hour,minute,false );
                 timePickerDialog.getWindow().setBackgroundDrawable( new ColorDrawable( Color.TRANSPARENT ) );
                 timePickerDialog.show();
 

@@ -71,17 +71,15 @@ public class Info_member extends AppCompatActivity {
         info();
         Update();
         //Register();
-
     }
-
     public void info() {
-        firebaseFirestore.collection( "user" ).document( userId ).collection( "Lismember" ).whereEqualTo( "email", infoemail ).get().addOnCompleteListener( new OnCompleteListener<QuerySnapshot>() {
+        firebaseFirestore.collection( "user" ).document( userId ).collection( "Lismember" ).whereEqualTo( "email", infoemail )
+                .get().addOnCompleteListener( new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Log.e( "vvv", document.getId() + " => " + document.getData() + document.get( "email" ) );
-
                         id = document.getId();
                         ed_hoten.setText( document.get( "name" ).toString() + "" );
                         ed_email.setText( document.get( "email" ).toString() + "" );
@@ -91,17 +89,14 @@ public class Info_member extends AppCompatActivity {
                         ed_ngaysinh.setText( document.get( "ngay sinh" ).toString() + "" );
                         ed_thongtinkhac.setText( document.get( "thong tin khac" ).toString() + "" );
                         tengroupif.setText( document.get( "group" ).toString() + ""  );
-
                     }
                 }
             }
         } );
     }
-
     public void Update() {
         btn_luu.setOnClickListener( new View.OnClickListener() {
             //  private Map<String, String> userMap;
-
             @Override
             public void onClick(View v) {
                 String hoten = ed_hoten.getText().toString().trim();
@@ -116,23 +111,12 @@ public class Info_member extends AppCompatActivity {
                 if (!hoten.equals( "" ) && !email.equals( "" ) && !sdt.equals( "" )) {
                     Map<String, Object> note = (new Member( hoten, email, sdt, ngaysinh, diachi, congty, thongtin, group )).toMap();
 
-//                    Map<String , String> userMap= new HashMap<>(  );
-//
-//                    userMap.put( "name",hoten );
-//                    userMap.put( "email", email );
-//                    userMap.put("sdt", sdt);
-//                    userMap.put("ngay sinh", ngaysinh);
-//                    userMap.put("dia chi", diachi);
-//                    userMap.put("cong ty", congty);
-//                    userMap.put("thong tin khac", thongtin);
-
                     firebaseFirestore.collection( "user" ).document( userId ).collection( "Lismember" ).document( id ).set( note ).addOnSuccessListener( new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             finish();
                             Log.e( "aaa", "Note document update successful!" );
                             Toast.makeText( getApplicationContext(), "Cập nhật thành công ", Toast.LENGTH_SHORT ).show();
-
                         }
                     } )
                             .addOnFailureListener( new OnFailureListener() {
@@ -142,18 +126,12 @@ public class Info_member extends AppCompatActivity {
                                     Toast.makeText( getApplicationContext(), "Note could not be updated!", Toast.LENGTH_SHORT ).show();
                                 }
                             } );
-
-
                 } else {
                     Toast.makeText( Info_member.this, "Nhap du thong tin", Toast.LENGTH_SHORT ).show();
                 }
-
-
             }
-
         } );
     }
-
     public void init() {
         btn_luu = findViewById( R.id.btn_luu );
         ed_hoten = findViewById( R.id.edit_Name );
@@ -202,7 +180,6 @@ public class Info_member extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             list = new ArrayList<String>();
-
                             for (DocumentSnapshot doc : task.getResult()) {
                                 Group group = new Group();
                                 // Member member = doc.toObject(Member.class);
@@ -210,7 +187,6 @@ public class Info_member extends AppCompatActivity {
                                 //Log.e("list",doc.get( "name" )+"ss");
                                 // group.setName_group( doc.get( "name" ).toString() );
                                 list.add( doc.get( "name" ).toString() );
-
                             }
                             ArrayAdapter<String> adapter = new ArrayAdapter( Info_member.this, android.R.layout.simple_spinner_item, list );
                             adapter.setDropDownViewResource( android.R.layout.simple_list_item_single_choice );
@@ -218,10 +194,9 @@ public class Info_member extends AppCompatActivity {
                             spinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                    tengroupif.setText(  spinner.getSelectedItem().toString());
+                                   // tengroupif.setText(  spinner.getSelectedItem().toString());
                                     //Toast.makeText(Info_member.this, spinner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
                                 }
-
                                 @Override
                                 public void onNothingSelected(AdapterView<?> adapterView) {
                                     tengroupif.setText("");

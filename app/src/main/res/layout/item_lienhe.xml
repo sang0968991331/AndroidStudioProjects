@@ -9,8 +9,9 @@
 
 
     <ImageView
+        android:padding="@dimen/sp15"
         android:layout_marginLeft="@dimen/dp20"
-        android:src="@drawable/ic_october"
+        android:src="@drawable/ic_phone_call"
         android:id="@+id/img_item"
         android:layout_width="56dp"
         android:layout_height="56dp"
@@ -23,25 +24,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/tv_noidung"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nội dung"
-            />
-
-        <TextView
-            android:id="@+id/tv_ngayhen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ngày"
-            android:textStyle="normal|italic"
-            />
-        <TextView
-            android:id="@+id/tv_giohen"
-            android:text="Giờ"
+            android:text="Cuộc gọi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Lúc : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_giogoi"
+                android:text="Giờ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Ngày : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_ngaygoi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày"
+                android:textStyle="normal|italic"
+                />
+        </LinearLayout>
+
+
 
     </LinearLayout>
 
@@ -50,17 +65,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <ImageView
-
-            android:id="@+id/ivEditLH"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_edit_document" />
-
         <ImageView
             android:layout_marginTop="3dp"
-            android:id="@+id/ivDeleteLH"
+            android:id="@+id/iv_Delelienhe"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/ic_delete" />

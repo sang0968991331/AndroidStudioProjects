@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
     FloatingActionButton btn_addmember;
     FloatingActionButton btn_addlichhen;
+    FloatingActionButton btn_addgroup;
     SharedPreferences sharedPreferences;
     String ngay;
 
@@ -84,29 +85,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
         sharedPreferences = getSharedPreferences( "dataLogin", MODE_PRIVATE );
-        drawerLayout = findViewById( R.id.drawer );
-        actionBarDrawerToggle = new ActionBarDrawerToggle( this, drawerLayout, R.string.open, R.string.close );
-        drawerLayout.addDrawerListener( (DrawerLayout.DrawerListener) actionBarDrawerToggle );
-        actionBarDrawerToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
-        NavigationView nvDraver = findViewById( R.id.nav_view );
-        setup( nvDraver );
-        View head = nvDraver.getHeaderView( 0 );
-        user_Name = head.findViewById( R.id.tv_userName );
-        user_Email = head.findViewById( R.id.tv_userEmail );
-        userId = sharedPreferences.getString( "IdUser", "" );
-        user_Email.setText( sharedPreferences.getString( "email", "" ) );
-        user_Name.setText( sharedPreferences.getString( "name", "" ) );
-        Log.e( "userid", userId + "   " + userName + "  " + userEmail );
         firebaseFirestore = FirebaseFirestore.getInstance();
-        recyclerView = findViewById( R.id.recy_main );
+        init();
         loadNotesList();
         add_member();
         add_lichhen();
+        add_group();
         Notifica();
         Calendar calendar = Calendar.getInstance();
-         ngay = (calendar.get( Calendar.MONTH ) + 1) + "/" + calendar.get( Calendar.DATE );
-       startService();
+         ngay =  calendar.get( Calendar.DATE ) + "/" +(calendar.get( Calendar.MONTH ) + 1);
+        // startService();
         Notification_Sinhnhat();
         Notification_Lichhen();
         Notification_Ngayle();
@@ -134,6 +122,27 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } );
     }
+    public void init(){
+
+        drawerLayout = findViewById( R.id.drawer );
+        actionBarDrawerToggle = new ActionBarDrawerToggle( this, drawerLayout, R.string.open, R.string.close );
+        drawerLayout.addDrawerListener( (DrawerLayout.DrawerListener) actionBarDrawerToggle );
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+        NavigationView nvDraver = findViewById( R.id.nav_view );
+        setup( nvDraver );
+        View head = nvDraver.getHeaderView( 0 );
+        user_Name = head.findViewById( R.id.tv_userName );
+        user_Email = head.findViewById( R.id.tv_userEmail );
+        userId = sharedPreferences.getString( "IdUser", "" );
+        user_Email.setText( sharedPreferences.getString( "email", "" ) );
+        user_Name.setText( sharedPreferences.getString( "name", "" ) );
+        Log.e( "userid", userId + "   " + userName + "  " + userEmail );
+
+        recyclerView = findViewById( R.id.recy_main );
+
+    }
+
     private void loadNotesList() {
         firebaseFirestore.collection( "user" ).document( userId ).collection( "Lismember" )
                 .get()
@@ -184,6 +193,17 @@ public class MainActivity extends AppCompatActivity {
             }
         } );
     }
+    public void add_group() {
+        btn_addgroup = findViewById( R.id.add_group );
+        btn_addgroup.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( MainActivity.this, Add_group.class );
+                intent.putExtra( "IdUser", userId );
+                startActivity( intent );
+            }
+        } );
+    }
     @SuppressLint("RestrictedApi")
     public void selectIterDrawer(MenuItem menuItem) {
         FrameLayout layout = (FrameLayout) findViewById( R.id.manhinhchinh );
@@ -192,11 +212,13 @@ public class MainActivity extends AppCompatActivity {
         switch (menuItem.getItemId()) {
             case R.id.home:
                 fragmentClass = Home.class;
+                btn_addgroup.setVisibility( View.GONE );
                 btn_addmember.setVisibility( View.VISIBLE );
                 btn_addlichhen.setVisibility( View.GONE );
                 recyclerView.setVisibility( View.VISIBLE );
                 break;
             case R.id.search:
+                btn_addgroup.setVisibility( View.GONE );
                 btn_addmember.setVisibility( View.GONE );
                 btn_addlichhen.setVisibility( View.GONE );
                 fragmentClass = Seach.class;
@@ -204,17 +226,20 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.group:
                 fragmentClass = f_Group.class;
+                btn_addgroup.setVisibility( View.VISIBLE );
                 btn_addlichhen.setVisibility( View.GONE );
                 btn_addmember.setVisibility( View.GONE );
                 recyclerView.setVisibility( View.GONE );
                 break;
             case R.id.event:
+                btn_addgroup.setVisibility( View.GONE );
                 btn_addlichhen.setVisibility( View.GONE );
                 btn_addmember.setVisibility( View.GONE );
                 fragmentClass = SuKien.class;
                 recyclerView.setVisibility( View.GONE );
                 break;
             case R.id.lich:
+                btn_addgroup.setVisibility( View.GONE );
                 btn_addlichhen.setVisibility( View.VISIBLE );
                 btn_addmember.setVisibility( View.GONE );
                 fragmentClass = LichHen.class;
@@ -231,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 break;
             default:
+                btn_addgroup.setVisibility( View.GONE );
                 fragmentClass = Home.class;
                 btn_addlichhen.setVisibility( View.GONE );
                 recyclerView.setVisibility( View.VISIBLE );
@@ -272,8 +298,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void Notification_Sinhnhat() {
-
-        firebaseFirestore.collection( "user" ).document( userId ).collection( "Lismember" )
+             firebaseFirestore.collection( "user" ).document( userId ).collection( "Lismember" )
                 .get()
                 .addOnCompleteListener( new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -285,6 +310,7 @@ public class MainActivity extends AppCompatActivity {
                                 Member member = new Member();
                                 member.setId( doc.getId().toString() );
                                 member.setName( doc.get( "name" ).toString() );
+                             //   Log.e("mama",doc.get( "name" ).toString());
                                 String ngaysinh = doc.get( "ngay sinh" ).toString();
                                 ngaysinh.split( "/" );
                                 String arr[] = ngaysinh.split( "/" );
@@ -294,8 +320,8 @@ public class MainActivity extends AppCompatActivity {
                                 member.setNgaysinh( arr[0] + "/" + arr[1] );
                                 String sinhnhat = arr[0] + "/" + arr[1];
                                 if (sinhnhat.equals( ngay )) {
-                                    MyNotificationManager myNotificationManager= new MyNotificationManager( getApplicationContext() );
-                                    myNotificationManager.getInstance(getApplicationContext()).displayNotification("Hôm nay "+ ngay, "Sinh nhật \n" + doc.get( "name" ).toString(),R.drawable.sinhnhat );
+                                  //  MyNotificationManager myNotificationManager= new MyNotificationManager( getApplicationContext() );
+                                    MyNotificationManager.getInstance(getApplicationContext()).displayNotification("Hôm nay "+ ngay, "Sinh nhật \n" + doc.get( "name" ).toString(),R.drawable.sinhnhat );
                                 }
                                 // member.setSdt( doc.get("sdt").toString() );
                               //  notesList.add( member );
@@ -313,11 +339,9 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
              //   List<com.example.myapplication.model.LichHen> notesList = new ArrayList<>();
-
                 for (DocumentSnapshot doc : queryDocumentSnapshots) {
                     com.example.myapplication.model.LichHen lichHen = new com.example.myapplication.model.LichHen(  );
-                    // Member member = doc.toObject(Member.class);
-                    //  lichHen.setId(doc.getId().toString());
+                //    lichHen.setId(doc.getId().toString());
                     lichHen.setNoidung( doc.get("noidung").toString() );
                     lichHen.setNgayhen( doc.get("ngay").toString() );
                     String ngayhen=doc.get("ngay").toString();
@@ -330,8 +354,8 @@ public class MainActivity extends AppCompatActivity {
                     lichHen.setNgayhen( arr[0] + "/" + arr[1] );
                     String ngayh = arr[0] + "/" + arr[1];
                     if (ngayh.equals( ngay )) {
-                        MyNotificationManager myNotificationManager= new MyNotificationManager( getApplicationContext() );
-                        myNotificationManager.getInstance(getApplicationContext()).displayNotification1("Lịch hẹn "+ ngay+" lúc "+doc.get("gio").toString() , " \n"+doc.get("noidung").toString() ,R.drawable.ic_october  );
+                      //  MyNotificationManager myNotificationManager= new MyNotificationManager( getApplicationContext() );
+                        MyNotificationManager.getInstance(getApplicationContext()).displayNotification1("Lịch hẹn "+ ngay+" lúc "+doc.get("gio").toString() , " \n"+doc.get("noidung").toString() ,R.drawable.ic_october  );
                     }
                  //   notesList.add(lichHen);
                 }
@@ -352,8 +376,8 @@ public class MainActivity extends AppCompatActivity {
                                 ngayLe.setNgayle( doc.get( "ngay" ).toString() );
                                 String ngayle = doc.get( "ngay" ).toString();
                                 if (ngayle.equals( ngay )) {
-                                    MyNotificationManager myNotificationManager = new MyNotificationManager( getApplicationContext() );
-                                    myNotificationManager.getInstance( getApplicationContext() ).displayNotification2( "Ngày"+  ngay , " \n" + doc.get( "noidung" ).toString(), R.drawable.lehoi );
+                                  //  MyNotificationManager myNotificationManager = new MyNotificationManager( getApplicationContext() );
+                                    MyNotificationManager.getInstance( getApplicationContext() ).displayNotification2( "Ngày"+  ngay , " \n" + doc.get( "noidung" ).toString(), R.drawable.lehoi );
                                 }
                             }
                         }
